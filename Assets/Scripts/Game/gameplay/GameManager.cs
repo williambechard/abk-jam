@@ -23,7 +23,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static bool IsPaused { get; private set; }
+    private static bool _isPaused;
+
+    public static bool IsPaused
+    {
+        get { return _isPaused; }
+        set { _isPaused = value; }
+    }
 
     private void Awake()
     {
