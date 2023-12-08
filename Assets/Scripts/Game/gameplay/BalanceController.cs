@@ -13,10 +13,7 @@ public class BalanceController : MonoBehaviour
     public bool isActive = false;
 
 
-    private void Start()
-    {
-        Invoke("Reset", 1);
-    }
+
 
     public void Reset()
     {

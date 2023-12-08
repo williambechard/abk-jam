@@ -24,11 +24,50 @@ public class GameManager : MonoBehaviour
     }
 
     private static bool _isPaused;
+    private static int _score;
+    private static bool _isGoalMet;
+
+
+    public void init()
+    {
+        _isPaused = false;
+        _score = 0;
+        _isGoalMet = false;
+    }
+
+    public static bool IsGoalMet
+    {
+        get { return _isGoalMet; }
+        set { _isGoalMet = value; }
+    }
+
+    public static int Score
+    {
+        get { return _score; }
+        set { _score = value; }
+    }
+
 
     public static bool IsPaused
     {
         get { return _isPaused; }
         set { _isPaused = value; }
+    }
+
+    public void Reset()
+    {
+        init();
+        //unload the scene
+        //LevelManager.Instance.UnloadScene("Game");
+        //LevelManager.Instance.UnloadScene("GameOverlay");
+        //Invoke("LoadGameScene", 2f);
+
+    }
+
+    void LoadGameScene()
+    {
+        //Debug.Log("Loading Game Scene from invoke");
+        //LevelManager.Instance.LoadSceneAdditive("Game");
     }
 
     private void Awake()
@@ -42,6 +81,8 @@ public class GameManager : MonoBehaviour
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
+
+        init();
     }
 
     public void PauseGame()

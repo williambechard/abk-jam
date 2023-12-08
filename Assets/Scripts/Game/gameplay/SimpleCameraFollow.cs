@@ -15,8 +15,18 @@ public class SimpleCameraFollow : MonoBehaviour
     public Transform packageContainer;
     public float moveDuration = 1f; // Duration in seconds
 
-    void Start()
+    public Vector3 initRotation;
+
+    public void Start()
     {
+        initRotation = transform.localEulerAngles;
+
+    }
+
+
+    public void CameraSetup()
+    {
+        StopAllCoroutines();
         if (targetFollow == null)
         {
             Debug.LogError("Target not assigned!");
@@ -34,6 +44,11 @@ public class SimpleCameraFollow : MonoBehaviour
         previousYAngle = targetFollow.eulerAngles.y;
 
         StartCoroutine(AdjustHeight());
+    }
+
+    public void Reset()
+    {
+
     }
 
     IEnumerator AdjustHeight()

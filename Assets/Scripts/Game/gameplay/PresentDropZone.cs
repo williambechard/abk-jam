@@ -21,7 +21,7 @@ public class PresentDropZone : MonoBehaviour
     {
         while (true)
         {
-            if (!GameManager.IsPaused)
+            if (!GameManager.IsPaused && !GameManager.IsGoalMet)
             {
                 //shoot a ray down and determine if it hits a present and if that present is not kinematic
                 RaycastHit hit;

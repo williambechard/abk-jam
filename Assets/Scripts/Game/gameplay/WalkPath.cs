@@ -11,18 +11,19 @@ public class WalkPath : MonoBehaviour
     public float rotationSpeed = 5f;
     public float lerpDuration = 2f;
 
-    private int currentPathIndex = 0;
+    public int currentPathIndex = 0;
     private float initialY;
     private float lerpTime = 0f;
 
     void Start()
     {
         initialY = targetObject.transform.position.y; // Store the initial Y-value
-        Invoke("startWalk", 1f);
     }
 
-    void startWalk()
+    public void Reset()
     {
+
+        StopCoroutine(WalkPaths());
         StartCoroutine(WalkPaths());
     }
 
@@ -30,8 +31,9 @@ public class WalkPath : MonoBehaviour
     {
         while (currentPathIndex < paths.Count && !GameManager.IsPaused)
         {
+
             Transform currentWaypoint = paths[currentPathIndex].GetWaypoint();
-            Debug.Log("currentWaypoint " + currentWaypoint.position);
+
 
             // Lerp between current position and next waypoint
             lerpTime = 0f;
@@ -44,6 +46,7 @@ public class WalkPath : MonoBehaviour
 
             while (lerpTime < lerpDuration)
             {
+
                 lerpTime += Time.deltaTime;
                 float t = lerpTime / lerpDuration;
 
@@ -51,9 +54,8 @@ public class WalkPath : MonoBehaviour
                 targetObject.transform.rotation = Quaternion.Lerp(initialRotation, targetRotation, t);
 
                 // If you want the visualObject to follow the same lerp
-                visualObject.transform.position = targetObject.transform.position;
+                visualObject.transform.position = new Vector3(targetObject.transform.position.x, visualObject.transform.position.y, targetObject.transform.position.z);
                 // visualObject.transform.rotation = targetObject.transform.rotation;
-
                 yield return null;
             }
 
@@ -66,6 +68,7 @@ public class WalkPath : MonoBehaviour
 
             // Move to the next waypoint
             currentPathIndex++;
+
 
             yield return null;
         }

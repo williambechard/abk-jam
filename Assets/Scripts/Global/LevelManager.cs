@@ -39,6 +39,7 @@ public class LevelManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(name);
     }
 
+
     //Load Scene either as a replacement for current scene, or as an additive scene (so current scene isnt unloaded)
     public void LoadScene(string sceneName)
     {

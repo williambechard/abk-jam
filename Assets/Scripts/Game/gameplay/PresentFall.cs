@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PresentFall : MonoBehaviour
@@ -10,10 +11,20 @@ public class PresentFall : MonoBehaviour
     public Transform presentsContainer;
     public bool isLocked = false;
 
+    public GameObject ScoreEffectPREFAB;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         presentsContainer = GameObject.Find("PresentsContainer").transform;
+    }
+
+    public void PresentScore()
+    {
+        GameManager.Score++;
+        EventManager.TriggerEvent("ScoreUpdate", new Dictionary<string, object> { { "score", GameManager.Score } });
+        GameObject scoreEffect = Instantiate(ScoreEffectPREFAB, transform.position, Quaternion.identity);
+        Destroy(this.gameObject);
     }
 
     public void Fall()
